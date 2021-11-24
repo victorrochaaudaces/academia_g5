@@ -7,6 +7,7 @@ package userDao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.List;
 import user.User;
 
@@ -77,17 +78,86 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void excluir(int id) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            conn = ConnectionDb.ConDb();
+            prepareSql = conn.prepareStatement("DELETE FROM cad_usuario WHERE matricula = ?");
+            prepareSql.setInt(1, id);
+            prepareSql.executeUpdate();
+        } catch (Exception e) {
+            System.out.println("Erro ao deletar o cadastro " + e.getMessage());
+        } finally {
+            conn.close();
+            prepareSql.close();
+        }
     }
 
     @Override
     public User pesquisarporId(int id) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String sql = "SELECT * FROM cad_usuario WHERE matricula = ?";
+        User user = null;
+        try {
+            conn = ConnectionDb.ConDb();
+            prepareSql = conn.prepareStatement(sql);
+            prepareSql.setInt(1, id);
+            resultado = prepareSql.executeQuery();
+            if (resultado.next()) {
+                user = new User();
+                user.setMatricula(resultado.getInt("matricula"));
+                user.setNome(resultado.getString("nome"));
+                user.setSobrenmome(resultado.getString("sobrenome"));
+                user.setEmail(resultado.getString("email"));
+                user.setEndereco(resultado.getString("endereco"));
+                user.setIdade(resultado.getInt("idade"));
+                user.setRest_med(resultado.getString("rest_med"));
+                user.setNum_tel(resultado.getDouble("num_tel"));
+                user.setPeso(resultado.getDouble("peso"));
+                user.setAltura(resultado.getDouble("altura"));
+                user.setCod_plan(resultado.getInt("cod_plan"));
+            }
+        } catch (Exception e) {
+            System.out.println("Erro ao pesquisar cadastro pela matricula " + e.getMessage());
+        } finally {
+            conn.close();
+            prepareSql.close();
+            resultado.close();
+        }
+        return user;
+
     }
 
     @Override
     public List<User> pesquisarporNome(String nome) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String sql = "SELECT * FROM cad_usuario WHERE nome LIKE ?";
+        List<User> users = new ArrayList<>();
+        try {
+            conn = ConnectionDb.ConDb();
+            prepareSql = conn.prepareStatement(sql);
+            prepareSql.setString(1, "%" + nome + "%");
+            resultado = prepareSql.executeQuery();
+            User user;
+            while (resultado.next()) {
+                user = new User();
+                user.setMatricula(resultado.getInt("matricula"));
+                user.setNome(resultado.getString("nome"));
+                user.setSobrenmome(resultado.getString("sobrenome"));
+                user.setEmail(resultado.getString("email"));
+                user.setEndereco(resultado.getString("endereco"));
+                user.setIdade(resultado.getInt("idade"));
+                user.setRest_med(resultado.getString("rest_med"));
+                user.setNum_tel(resultado.getDouble("num_tel"));
+                user.setPeso(resultado.getDouble("peso"));
+                user.setAltura(resultado.getDouble("altura"));
+                user.setCod_plan(resultado.getInt("cod_plan"));
+                users.add(user);
+            }
+        } catch (Exception e) {
+            System.out.println("Erro ao pesquisar por nome " + e.getMessage());
+        } finally {
+            conn.close();
+            prepareSql.close();
+            resultado.close();
+        }
+        return users;
     }
 
 }
