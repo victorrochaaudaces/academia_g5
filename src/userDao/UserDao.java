@@ -12,14 +12,16 @@ import user.User;
  * @author victo
  */
 public interface UserDao {
-    
-    public abstract void salvar(User user) throws Exception;
-    
-    public abstract void alterar(User user) throws Exception;
-    
-    void excluir(int id) throws Exception;
 
-    User pesquisarporId(int id) throws Exception;
-    
-    List<User> pesquisarporNome( String nome) throws Exception;
+    public abstract void salvar(User user) throws Exception;
+
+    public abstract void alterar(User user) throws Exception;
+
+    void excluir(int matricula) throws Exception;
+
+    User pesquisarporMatricula(int matricula) throws Exception;
+
+    List<User> pesquisarporNome(String nome) throws Exception;
+
+    User logar(String email, String senha) throws Exception;
 }

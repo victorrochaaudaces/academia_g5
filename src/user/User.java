@@ -21,6 +21,7 @@ public class User {
     private double peso;
     private double altura;
     private Integer cod_plan;
+    private String senha;
 
     public Integer getMatricula() {
         return matricula;
@@ -108,6 +109,14 @@ public class User {
 
     public void setCod_plan(Integer cod_plan) {
         this.cod_plan = cod_plan;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
 
 }

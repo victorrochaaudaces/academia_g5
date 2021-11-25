@@ -4,6 +4,11 @@
  */
 package tela;
 
+import javax.swing.JOptionPane;
+import user.User;
+import userDao.UserDao;
+import userDao.UserDaoImpl;
+
 /**
  *
  * @author victo
@@ -62,6 +67,11 @@ public class TelaLogin extends javax.swing.JFrame {
 
         logar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         logar.setText("Sig In");
+        logar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                logarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -106,6 +116,22 @@ public class TelaLogin extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void logarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logarActionPerformed
+       UserDao userDao =  new UserDaoImpl();
+        try {
+            User user = userDao.logar(varLogin.getText(), String.valueOf(varSenha.getPassword()));
+            if(user == null){
+                JOptionPane.showMessageDialog(null, "Login ou senha incorretos!!");
+            } else {
+                new Home(user).setVisible(true);
+                dispose();
+            }
+        } catch (Exception e) {
+        } finally {
+            
+        }
+    }//GEN-LAST:event_logarActionPerformed
 
     /**
      * @param args the command line arguments

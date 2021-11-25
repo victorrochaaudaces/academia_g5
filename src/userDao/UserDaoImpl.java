@@ -24,8 +24,8 @@ public class UserDaoImpl implements UserDao {
     @Override
     public void salvar(User user) throws Exception {
         String comando = "INSERT INTO  cad_usuario\n"
-                + "( nome, sobrenome, email, endereco, idade, rest_med, num_tel, peso, altura, cod_plan)\n"
-                + "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
+                + "( nome, sobrenome, email, endereco, idade, rest_med, num_tel, peso, altura, cod_plan, senha)\n"
+                + "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
         try {
             conn = ConnectionDb.ConDb();
             prepareSql = conn.prepareStatement(comando);
@@ -39,6 +39,7 @@ public class UserDaoImpl implements UserDao {
             prepareSql.setDouble(8, user.getPeso());
             prepareSql.setDouble(9, user.getAltura());
             prepareSql.setInt(10, user.getCod_plan());
+            prepareSql.setString(11, user.getSenha());
             prepareSql.executeUpdate();
         } catch (Exception e) {
             System.out.println("Erro ao salvar o cadastro do usuário: " + e.getMessage());
@@ -50,9 +51,10 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void alterar(User user) throws Exception {
+//        metodo de alteração do cadastro
         String comando = "UPDATE cad_usuario SET\n"
                 + "nome = ?, sobrenome = ?, email = ?, endereco = ?, idade = ?,\n"
-                + "rest_med = ?, num_tel = ?, peso = ?, altura = ?, cod_plan = ? WHERE matricula = ?";
+                + "rest_med = ?, num_tel = ?, peso = ?, altura = ?, cod_plan = ?, senha = ? WHERE matricula = ?";
         try {
             conn = ConnectionDb.ConDb();
             prepareSql = conn.prepareStatement(comando);
@@ -66,7 +68,8 @@ public class UserDaoImpl implements UserDao {
             prepareSql.setDouble(8, user.getPeso());
             prepareSql.setDouble(9, user.getAltura());
             prepareSql.setInt(10, user.getCod_plan());
-            prepareSql.setInt(11, user.getMatricula());
+            prepareSql.setString(11, user.getSenha());
+            prepareSql.setInt(12, user.getMatricula());
             prepareSql.executeUpdate();
         } catch (Exception e) {
             System.out.println("Erro ao atualizar o cadastro do usuário: " + e.getMessage());
@@ -77,11 +80,11 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public void excluir(int id) throws Exception {
+    public void excluir(int matricula) throws Exception {
         try {
             conn = ConnectionDb.ConDb();
             prepareSql = conn.prepareStatement("DELETE FROM cad_usuario WHERE matricula = ?");
-            prepareSql.setInt(1, id);
+            prepareSql.setInt(1, matricula);
             prepareSql.executeUpdate();
         } catch (Exception e) {
             System.out.println("Erro ao deletar o cadastro " + e.getMessage());
@@ -92,13 +95,13 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public User pesquisarporId(int id) throws Exception {
+    public User pesquisarporMatricula(int matricula) throws Exception {
         String sql = "SELECT * FROM cad_usuario WHERE matricula = ?";
         User user = null;
         try {
             conn = ConnectionDb.ConDb();
             prepareSql = conn.prepareStatement(sql);
-            prepareSql.setInt(1, id);
+            prepareSql.setInt(1, matricula);
             resultado = prepareSql.executeQuery();
             if (resultado.next()) {
                 user = new User();
@@ -113,6 +116,7 @@ public class UserDaoImpl implements UserDao {
                 user.setPeso(resultado.getDouble("peso"));
                 user.setAltura(resultado.getDouble("altura"));
                 user.setCod_plan(resultado.getInt("cod_plan"));
+                user.setSenha(resultado.getString("senha"));
             }
         } catch (Exception e) {
             System.out.println("Erro ao pesquisar cadastro pela matricula " + e.getMessage());
@@ -122,7 +126,6 @@ public class UserDaoImpl implements UserDao {
             resultado.close();
         }
         return user;
-
     }
 
     @Override
@@ -148,6 +151,7 @@ public class UserDaoImpl implements UserDao {
                 user.setPeso(resultado.getDouble("peso"));
                 user.setAltura(resultado.getDouble("altura"));
                 user.setCod_plan(resultado.getInt("cod_plan"));
+                user.setSenha(resultado.getString("senha"));
                 users.add(user);
             }
         } catch (Exception e) {
@@ -158,6 +162,41 @@ public class UserDaoImpl implements UserDao {
             resultado.close();
         }
         return users;
+    }
+
+    @Override
+    public User logar(String email, String senha) throws Exception {
+        String sql = "SELECT * FROM cad_usuario WHERE email = ? and senha = ?";
+        User user = null;
+        try {
+            conn = ConnectionDb.ConDb();
+            prepareSql = conn.prepareStatement(sql);
+            prepareSql.setString(1, email);
+            prepareSql.setString(2, senha);
+            resultado = prepareSql.executeQuery();
+            if (resultado.next()) {
+                user = new User();
+                user.setMatricula(resultado.getInt("matricula"));
+                user.setNome(resultado.getString("nome"));
+                user.setSobrenmome(resultado.getString("sobrenome"));
+                user.setEmail(email);
+                user.setSenha(senha);
+                user.setEndereco(resultado.getString("endereco"));
+                user.setIdade(resultado.getInt("idade"));
+                user.setRest_med(resultado.getString("rest_med"));
+                user.setNum_tel(resultado.getDouble("num_tel"));
+                user.setPeso(resultado.getDouble("peso"));
+                user.setAltura(resultado.getDouble("altura"));
+                user.setCod_plan(resultado.getInt("cod_plan"));
+            }
+        } catch (Exception e) {
+            System.out.println("Erro ao logar usuário " + e.getMessage());
+        } finally {
+            conn.close();
+            prepareSql.close();
+            resultado.close();
+        }
+        return user;
     }
 
 }
