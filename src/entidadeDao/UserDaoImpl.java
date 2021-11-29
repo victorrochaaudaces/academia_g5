@@ -2,14 +2,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package userDao;
+package entidadeDao;
 
+import Entidade.TipoPlan;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
-import user.User;
+import Entidade.User;
 
 /**
  *
@@ -23,7 +24,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void salvar(User user) throws Exception {
-        String comando = "INSERT INTO  cad_usuario\n"
+        String comando = "INSERT INTO  aluno_acad\n"
                 + "( nome, sobrenome, email, endereco, idade, rest_med, num_tel, peso, altura, cod_plan, senha)\n"
                 + "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
         try {
@@ -38,7 +39,7 @@ public class UserDaoImpl implements UserDao {
             prepareSql.setDouble(7, user.getNum_tel());
             prepareSql.setDouble(8, user.getPeso());
             prepareSql.setDouble(9, user.getAltura());
-            prepareSql.setInt(10, user.getCod_plan());
+            prepareSql.setInt(10, user.getTipoPlan().getCodPlan());
             prepareSql.setString(11, user.getSenha());
             prepareSql.executeUpdate();
         } catch (Exception e) {
@@ -52,7 +53,7 @@ public class UserDaoImpl implements UserDao {
     @Override
     public void alterar(User user) throws Exception {
 //        metodo de alteração do cadastro
-        String comando = "UPDATE cad_usuario SET\n"
+        String comando = "UPDATE aluno_acad SET\n"
                 + "nome = ?, sobrenome = ?, email = ?, endereco = ?, idade = ?,\n"
                 + "rest_med = ?, num_tel = ?, peso = ?, altura = ?, cod_plan = ?, senha = ? WHERE matricula = ?";
         try {
@@ -67,7 +68,7 @@ public class UserDaoImpl implements UserDao {
             prepareSql.setDouble(7, user.getNum_tel());
             prepareSql.setDouble(8, user.getPeso());
             prepareSql.setDouble(9, user.getAltura());
-            prepareSql.setInt(10, user.getCod_plan());
+            prepareSql.setInt(10, user.getTipoPlan().getCodPlan());
             prepareSql.setString(11, user.getSenha());
             prepareSql.setInt(12, user.getMatricula());
             prepareSql.executeUpdate();
@@ -83,7 +84,7 @@ public class UserDaoImpl implements UserDao {
     public void excluir(int matricula) throws Exception {
         try {
             conn = ConnectionDb.ConDb();
-            prepareSql = conn.prepareStatement("DELETE FROM cad_usuario WHERE matricula = ?");
+            prepareSql = conn.prepareStatement("DELETE FROM aluno WHERE matricula = ?");
             prepareSql.setInt(1, matricula);
             prepareSql.executeUpdate();
         } catch (Exception e) {
@@ -96,13 +97,17 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User pesquisarporMatricula(int matricula) throws Exception {
-        String sql = "SELECT * FROM cad_usuario WHERE matricula = ?";
+        String sql = "SELECT a.matricula a_matricula, a.nome a_nome, p.nm_plan p_nm_plan, p.cod_plan p_cod_plan, a.*, p.*\n"
+                + "from aluno_acad a join tipo_plan p \n"
+                + "on a.cod_plan = p.cod_plan\n"
+                + "WHERE matricula = ?";
         User user = null;
         try {
             conn = ConnectionDb.ConDb();
             prepareSql = conn.prepareStatement(sql);
             prepareSql.setInt(1, matricula);
             resultado = prepareSql.executeQuery();
+            TipoPlan tipoPlan;
             if (resultado.next()) {
                 user = new User();
                 user.setMatricula(resultado.getInt("matricula"));
@@ -115,7 +120,12 @@ public class UserDaoImpl implements UserDao {
                 user.setNum_tel(resultado.getDouble("num_tel"));
                 user.setPeso(resultado.getDouble("peso"));
                 user.setAltura(resultado.getDouble("altura"));
-                user.setCod_plan(resultado.getInt("cod_plan"));
+                tipoPlan = new TipoPlan(
+                        resultado.getInt("cod_plan"),
+                        resultado.getString("nm_plan"),
+                        resultado.getDouble("mensalidade")
+                );
+                user.setTipoPlan(tipoPlan);
                 user.setSenha(resultado.getString("senha"));
             }
         } catch (Exception e) {
@@ -130,14 +140,18 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public List<User> pesquisarporNome(String nome) throws Exception {
-        String sql = "SELECT * FROM cad_usuario WHERE nome LIKE ?";
+        User user;
+        String sql = "SELECT a.matricula a_matricula, a.nome a_nome, p.nm_plan p_nm_plan, p.cod_plan p_cod_plan, a.*, p.*\n"
+                + "from aluno_acad a join tipo_plan p \n"
+                + "on a.cod_plan = p.cod_plan\n"
+                + "WHERE a.nome LIKE";
         List<User> users = new ArrayList<>();
         try {
             conn = ConnectionDb.ConDb();
             prepareSql = conn.prepareStatement(sql);
             prepareSql.setString(1, "%" + nome + "%");
             resultado = prepareSql.executeQuery();
-            User user;
+            TipoPlan tipoPlan;
             while (resultado.next()) {
                 user = new User();
                 user.setMatricula(resultado.getInt("matricula"));
@@ -150,7 +164,12 @@ public class UserDaoImpl implements UserDao {
                 user.setNum_tel(resultado.getDouble("num_tel"));
                 user.setPeso(resultado.getDouble("peso"));
                 user.setAltura(resultado.getDouble("altura"));
-                user.setCod_plan(resultado.getInt("cod_plan"));
+                tipoPlan = new TipoPlan(
+                        resultado.getInt("cod_plan"),
+                        resultado.getString("nm_plan"),
+                        resultado.getDouble("mensalidade")
+                );
+                user.setTipoPlan(tipoPlan);
                 user.setSenha(resultado.getString("senha"));
                 users.add(user);
             }
@@ -166,7 +185,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User logar(String email, String senha) throws Exception {
-        String sql = "SELECT * FROM cad_usuario WHERE email = ? and senha = ?";
+        String sql = "SELECT * FROM aluno_acad WHERE email = ? and senha = ? ";
         User user = null;
         try {
             conn = ConnectionDb.ConDb();
@@ -187,7 +206,6 @@ public class UserDaoImpl implements UserDao {
                 user.setNum_tel(resultado.getDouble("num_tel"));
                 user.setPeso(resultado.getDouble("peso"));
                 user.setAltura(resultado.getDouble("altura"));
-                user.setCod_plan(resultado.getInt("cod_plan"));
             }
         } catch (Exception e) {
             System.out.println("Erro ao logar usuário " + e.getMessage());

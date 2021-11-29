@@ -4,14 +4,14 @@
  */
 package tela;
 
-import userDao.UserDao;
-import user.User;
+import entidadeDao.UserDao;
+import Entidade.User;
 
 /**
  *
  * @author victo
  */
-import userDao.UserDaoImpl;
+import entidadeDao.UserDaoImpl;
 
 public class CadUsuario extends javax.swing.JFrame {
 

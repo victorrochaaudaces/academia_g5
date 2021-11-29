@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package user;
+package Entidade;
 
 /**
  *
@@ -20,8 +20,8 @@ public class User {
     private double num_tel;
     private double peso;
     private double altura;
-    private Integer cod_plan;
     private String senha;
+    private TipoPlan tipoPlan;
 
     public Integer getMatricula() {
         return matricula;
@@ -103,14 +103,6 @@ public class User {
         this.altura = altura;
     }
 
-    public Integer getCod_plan() {
-        return cod_plan;
-    }
-
-    public void setCod_plan(Integer cod_plan) {
-        this.cod_plan = cod_plan;
-    }
-
     public String getSenha() {
         return senha;
     }
@@ -118,5 +110,15 @@ public class User {
     public void setSenha(String senha) {
         this.senha = senha;
     }
+
+    public TipoPlan getTipoPlan() {
+        return tipoPlan;
+    }
+
+    public void setTipoPlan(TipoPlan tipoPlan) {
+        this.tipoPlan = tipoPlan;
+    }
+    
+    
 
 }

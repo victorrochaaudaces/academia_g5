@@ -5,9 +5,9 @@
 package tela;
 
 import javax.swing.JOptionPane;
-import user.User;
-import userDao.UserDao;
-import userDao.UserDaoImpl;
+import Entidade.User;
+import entidadeDao.UserDao;
+import entidadeDao.UserDaoImpl;
 
 /**
  *

@@ -4,7 +4,7 @@
  */
 package tela;
 
-import user.User;
+import Entidade.User;
 
 /**
  *
