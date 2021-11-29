@@ -84,7 +84,7 @@ public class UserDaoImpl implements UserDao {
     public void excluir(int matricula) throws Exception {
         try {
             conn = ConnectionDb.ConDb();
-            prepareSql = conn.prepareStatement("DELETE FROM aluno_acad WHERE matricula = ?");
+            prepareSql = conn.prepareStatement("DELETE FROM aluno WHERE matricula = ?");
             prepareSql.setInt(1, matricula);
             prepareSql.executeUpdate();
         } catch (Exception e) {
