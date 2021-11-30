@@ -5,7 +5,6 @@
 package tela;
 
 import Entidade.Funcionario;
-import Entidade.User;
 
 /**
  *
@@ -13,24 +12,19 @@ import Entidade.User;
  */
 public class HomeFuncionarioLogado extends javax.swing.JFrame {
 
-    private User user;
+    private Funcionario funcionario;
 
     /**
      * Creates new form Home
      */
-    public HomeFuncionarioLogado(User user) {
+    public HomeFuncionarioLogado(Funcionario funcionario) {
         initComponents();
-        this.user = user;
+        this.funcionario = funcionario;
     }
 
     public HomeFuncionarioLogado() {
         initComponents();
     }
-
-    HomeFuncionarioLogado(Funcionario funcionario) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

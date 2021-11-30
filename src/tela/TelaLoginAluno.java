@@ -130,6 +130,7 @@ public class TelaLoginAluno extends javax.swing.JFrame {
             if (user == null) {
                 JOptionPane.showMessageDialog(null, "Login ou senha incorretos!!");
             } else {
+                JOptionPane.showMessageDialog(null, "usuário logado com sucesso!");
                 new HomeAlunoLogado(user).setVisible(true);
                 dispose();
             }

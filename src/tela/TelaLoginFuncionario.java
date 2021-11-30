@@ -126,6 +126,7 @@ public class TelaLoginFuncionario extends javax.swing.JFrame {
             if (funcionario == null) {
                 JOptionPane.showMessageDialog(null, "Login ou senha incorretos!");
             } else {
+                JOptionPane.showMessageDialog(null, "usuário logado com sucesso!");
                 new HomeFuncionarioLogado(funcionario).setVisible(true);
                 dispose();
             }
