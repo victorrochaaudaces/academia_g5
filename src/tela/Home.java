@@ -84,12 +84,13 @@ public class Home extends javax.swing.JFrame {
     private void btLogarAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLogarAlunoActionPerformed
         JOptionPane.showMessageDialog(null, "Agora faça login para acessar os serviços da academia!");
         new TelaLoginAluno().setVisible(true);
+        dispose();
     }//GEN-LAST:event_btLogarAlunoActionPerformed
 
     private void btLogarFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLogarFuncionarioActionPerformed
         JOptionPane.showMessageDialog(null, "Agora faça login para acessar a area de funcionário do sistema!");
         new TelaLoginFuncionario().setVisible(true);
-setVisible(true);
+        dispose();
     }//GEN-LAST:event_btLogarFuncionarioActionPerformed
 
     /**

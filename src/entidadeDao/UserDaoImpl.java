@@ -185,7 +185,10 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User logar(String email, String senha) throws Exception {
-        String sql = "SELECT * FROM aluno_acad WHERE email = ? and senha = ? ";
+        String sql = "select a.*, p.* \n"
+                + "from aluno_acad a join tipo_plan p \n"
+                + "on a.cod_plan = p.cod_plan \n"
+                + "where a.email = ? and a.senha = ?;";
         User user = null;
         try {
             conn = ConnectionDb.ConDb();
@@ -193,6 +196,7 @@ public class UserDaoImpl implements UserDao {
             prepareSql.setString(1, email);
             prepareSql.setString(2, senha);
             resultado = prepareSql.executeQuery();
+            TipoPlan tipoPlan;
             if (resultado.next()) {
                 user = new User();
                 user.setMatricula(resultado.getInt("matricula"));
@@ -206,6 +210,12 @@ public class UserDaoImpl implements UserDao {
                 user.setNum_tel(resultado.getDouble("num_tel"));
                 user.setPeso(resultado.getDouble("peso"));
                 user.setAltura(resultado.getDouble("altura"));
+                tipoPlan = new TipoPlan(
+                        resultado.getInt("cod_plan"),
+                        resultado.getString("nm_plan"),
+                        resultado.getDouble("mensalidade")
+                );
+                user.setTipoPlan(tipoPlan);
             }
         } catch (Exception e) {
             System.out.println("Erro ao logar usuário " + e.getMessage());

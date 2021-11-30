@@ -15,9 +15,6 @@ import entidadeDao.UserDaoImpl;
  */
 public class TelaLoginAluno extends javax.swing.JFrame {
 
-    /**
-     * Creates new form TelaLogin
-     */
     public TelaLoginAluno() {
         initComponents();
     }
@@ -40,6 +37,7 @@ public class TelaLoginAluno extends javax.swing.JFrame {
         varLogin = new javax.swing.JTextField();
         varSenha = new javax.swing.JPasswordField();
         logar = new javax.swing.JButton();
+        btVoltarHome = new javax.swing.JButton();
 
         jMenu1.setText("File");
         jMenuBar1.add(jMenu1);
@@ -65,10 +63,18 @@ public class TelaLoginAluno extends javax.swing.JFrame {
         lbSenha.setToolTipText("");
 
         logar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        logar.setText("Sig In");
+        logar.setText("Logar");
         logar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 logarActionPerformed(evt);
+            }
+        });
+
+        btVoltarHome.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        btVoltarHome.setText("sair");
+        btVoltarHome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btVoltarHomeActionPerformed(evt);
             }
         });
 
@@ -78,38 +84,39 @@ public class TelaLoginAluno extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(lbTitulo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
+                .addGap(96, 96, 96)
+                .addComponent(logar, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btVoltarHome)
+                .addGap(86, 86, 86))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(45, 45, 45)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lbSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(110, 110, 110)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(lbSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(varSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(lbLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(varLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(231, 231, 231)
-                        .addComponent(logar, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(147, Short.MAX_VALUE))
+                    .addComponent(varLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(varSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(85, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(lbTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(39, 39, 39)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbLogin)
                     .addComponent(varLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(36, 36, 36)
+                .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbSenha)
                     .addComponent(varSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(73, 73, 73)
-                .addComponent(logar)
-                .addGap(0, 71, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(logar)
+                    .addComponent(btVoltarHome))
+                .addGap(34, 34, 34))
         );
 
         pack();
@@ -117,20 +124,24 @@ public class TelaLoginAluno extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void logarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logarActionPerformed
-       UserDao userDao =  new UserDaoImpl();
+        UserDao userDao = new UserDaoImpl();
         try {
             User user = userDao.logar(varLogin.getText(), String.valueOf(varSenha.getPassword()));
-            if(user == null){
+            if (user == null) {
                 JOptionPane.showMessageDialog(null, "Login ou senha incorretos!!");
             } else {
-                new HomeLogado(user).setVisible(true);
+                new HomeAlunoLogado(user).setVisible(true);
                 dispose();
             }
         } catch (Exception e) {
-        } finally {
-            
-        }
+            System.out.println("Erro aou logar " + e.getMessage());
+        } 
     }//GEN-LAST:event_logarActionPerformed
+
+    private void btVoltarHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVoltarHomeActionPerformed
+        new Home().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btVoltarHomeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -169,6 +180,7 @@ public class TelaLoginAluno extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btVoltarHome;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
