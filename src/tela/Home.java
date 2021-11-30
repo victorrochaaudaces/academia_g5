@@ -32,6 +32,8 @@ public class Home extends javax.swing.JFrame {
         lbTituloHome = new javax.swing.JLabel();
         btLogarAluno = new javax.swing.JButton();
         btLogarFuncionario = new javax.swing.JButton();
+        lbNotifi = new javax.swing.JLabel();
+        btCriarCadastro = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Tela Home");
@@ -54,6 +56,15 @@ public class Home extends javax.swing.JFrame {
             }
         });
 
+        lbNotifi.setText("Não tem login? Faça agora mesmo o seu!");
+
+        btCriarCadastro.setText("Cadastre-se");
+        btCriarCadastro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btCriarCadastroActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -65,6 +76,14 @@ public class Home extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
                 .addComponent(btLogarFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(67, 67, 67))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lbNotifi)
+                .addGap(79, 79, 79))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(147, 147, 147)
+                .addComponent(btCriarCadastro)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -74,7 +93,11 @@ public class Home extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btLogarAluno)
                     .addComponent(btLogarFuncionario))
-                .addGap(0, 106, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(lbNotifi)
+                .addGap(18, 18, 18)
+                .addComponent(btCriarCadastro)
+                .addGap(0, 22, Short.MAX_VALUE))
         );
 
         pack();
@@ -92,6 +115,11 @@ public class Home extends javax.swing.JFrame {
         new TelaLoginFuncionario().setVisible(true);
         dispose();
     }//GEN-LAST:event_btLogarFuncionarioActionPerformed
+
+    private void btCriarCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCriarCadastroActionPerformed
+        new CadastroAluno().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btCriarCadastroActionPerformed
 
     /**
      * @param args the command line arguments
@@ -119,6 +147,9 @@ public class Home extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -129,8 +160,10 @@ public class Home extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btCriarCadastro;
     private javax.swing.JButton btLogarAluno;
     private javax.swing.JButton btLogarFuncionario;
+    private javax.swing.JLabel lbNotifi;
     private javax.swing.JLabel lbTituloHome;
     // End of variables declaration//GEN-END:variables
 }

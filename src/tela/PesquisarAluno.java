@@ -86,6 +86,11 @@ public class PesquisarAluno extends javax.swing.JFrame {
 
         btDeletar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btDeletar.setText("Deletar");
+        btDeletar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btDeletarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -157,6 +162,20 @@ public class PesquisarAluno extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Erro ao editard ados de usuário");
         }
     }//GEN-LAST:event_btEditarActionPerformed
+
+    private void btDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btDeletarActionPerformed
+        int linhaSelecionada = tabelaAluno.getSelectedRow();
+        try {
+            User user = users.get(linhaSelecionada);
+            userDao.excluir(user.getMatricula());
+            JOptionPane.showMessageDialog(null, "Cadastro excluido com sucesso!!");
+            users.remove(linhaSelecionada);
+            popularTabela();
+            varNome.setText(null);
+        } catch (Exception e) {
+            System.out.println("Erro ao excluir cadastro do aluno " + e.getMessage());
+        }
+    }//GEN-LAST:event_btDeletarActionPerformed
 
     private void popularTabela() {
         tabelaModelo = (DefaultTableModel) tabelaAluno.getModel();

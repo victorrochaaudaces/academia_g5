@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import entidade.User;
+import java.sql.Statement;
 
 /**
  *
@@ -25,11 +26,11 @@ public class UserDaoImpl implements UserDao {
     @Override
     public void salvar(User user) throws Exception {
         String comando = "INSERT INTO  aluno_acad\n"
-                + "( nome, sobrenome, email, endereco, idade, rest_med, num_tel, peso, altura, cod_plan, senha)\n"
-                + "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
+                + " ( nome, sobrenome, email, endereco, idade, rest_med, num_tel, peso, altura, cod_plan, senha)\n"
+                + " VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
         try {
             conn = ConnectionDb.ConDb();
-            prepareSql = conn.prepareStatement(comando);
+            prepareSql = conn.prepareStatement(comando, Statement.RETURN_GENERATED_KEYS);
             prepareSql.setString(1, user.getNome());
             prepareSql.setString(2, user.getSobrenome());
             prepareSql.setString(3, user.getEmail());
@@ -42,6 +43,9 @@ public class UserDaoImpl implements UserDao {
             prepareSql.setInt(10, user.getTipoPlan().getCodPlan());
             prepareSql.setString(11, user.getSenha());
             prepareSql.executeUpdate();
+            resultado = prepareSql.getGeneratedKeys();
+            resultado.next();
+            user.setMatricula(resultado.getInt(1));
         } catch (Exception e) {
             System.out.println("Erro ao salvar o cadastro do usuário: " + e.getMessage());
         } finally {
