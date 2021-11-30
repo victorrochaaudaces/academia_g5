@@ -82,7 +82,7 @@ public class AlterarDadosAluno extends javax.swing.JFrame {
 
         lbTitulo.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         lbTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbTitulo.setText("Cadastro do Aluno");
+        lbTitulo.setText("Dados de cadastro do aluno");
         lbTitulo.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(0, 0, 0)));
 
         lbNome.setText("Nome:");
