@@ -23,6 +23,7 @@ public class AlterarDadosAluno extends javax.swing.JFrame {
     private User user;
     private UserDao userDao = new UserDaoImpl();
     private List<TipoPlan> planos;
+    private int matricula;
 
     /**
      * Creates new form CadUsuario
@@ -47,6 +48,7 @@ public class AlterarDadosAluno extends javax.swing.JFrame {
         pesquisarPlanoCombobox();
         varComboPlan.setSelectedItem(user.getTipoPlan().getNomePlan());
         varSenha.setText(user.getSenha());
+        matricula = user.getMatricula();
     }
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -105,6 +107,11 @@ public class AlterarDadosAluno extends javax.swing.JFrame {
         lbAltura.setText("Altura:");
 
         btAlterar.setText("Alterar");
+        btAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btAlterarActionPerformed(evt);
+            }
+        });
 
         lbPlano.setText("Plano:");
 
@@ -213,6 +220,7 @@ public class AlterarDadosAluno extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAlterarActionPerformed
+//        user = new User();
         int linhaSelecionada = varComboPlan.getSelectedIndex();
         TipoPlan tipoPlan = planos.get(--linhaSelecionada);
         user.setTipoPlan(tipoPlan);
@@ -225,12 +233,12 @@ public class AlterarDadosAluno extends javax.swing.JFrame {
         user.setEndereco(varEndereco.getText());
         user.setIdade(Integer.parseInt(varIdade.getText()));
         user.setSenha(String.valueOf(varSenha.getPassword()));
-        user.setMatricula(user.getMatricula());
+        user.setMatricula(matricula);
         user.setRest_med(varRest_med.getText());
         try {
             userDao.alterar(user);
             JOptionPane.showMessageDialog(null, "Os dados do aluno forma alterados com sucesso");
-            new HomeAlunoLogado(user).setVisible(true);
+            new TelaLoginAluno().setVisible(true);
             dispose();
         } catch (Exception e) {
             System.out.println("Erro ao alterar dados do usuario " + e.getMessage());
