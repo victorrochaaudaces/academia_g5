@@ -253,6 +253,7 @@ public class CadastroFuncionario extends javax.swing.JFrame {
             new HomeFuncionarioLogado().setVisible(true);
             dispose();
         } catch (Exception e) {
+            System.out.println("Erro ao salvar ou alterar os dados do funcionário " + e.getMessage());
         }
     }//GEN-LAST:event_btCadastroFuncionarioActionPerformed
 

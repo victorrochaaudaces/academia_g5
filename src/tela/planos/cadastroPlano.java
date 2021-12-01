@@ -5,17 +5,34 @@
  */
 package tela.planos;
 
+import entidade.TipoPlan;
+import entidadeDao.TipoPlanDao;
+import entidadeDao.TipoPlanDaoImpl;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author victor.rocha
  */
 public class cadastroPlano extends javax.swing.JFrame {
 
+    private TipoPlan tipoPlan;
+    private TipoPlanDao tipoPlanDao = new TipoPlanDaoImpl();
+    private int cod;
+
     /**
      * Creates new form cadastroPlano
      */
     public cadastroPlano() {
         initComponents();
+    }
+
+    public cadastroPlano(TipoPlan tipoPlan) {
+        initComponents();
+        this.tipoPlan = tipoPlan;
+        varNomePlan.setText(tipoPlan.getNomePlan());
+        varMensalidade.setText(Double.toString(tipoPlan.getMensalidade()));
+        cod = tipoPlan.getCodPlan();
     }
 
     /**
@@ -27,21 +44,93 @@ public class cadastroPlano extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        lbTitulo = new javax.swing.JLabel();
+        lbNome = new javax.swing.JLabel();
+        lbMensalidade = new javax.swing.JLabel();
+        varNomePlan = new javax.swing.JTextField();
+        varMensalidade = new javax.swing.JTextField();
+        btSalvar = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        lbTitulo.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        lbTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbTitulo.setText("Cadastro de planos da academia");
+        lbTitulo.setBorder(new javax.swing.border.MatteBorder(null));
+
+        lbNome.setText("Nome do plano:");
+
+        lbMensalidade.setText("Valor da mensalidade:");
+
+        btSalvar.setText("Salvar");
+        btSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSalvarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(lbTitulo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lbNome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lbMensalidade, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btSalvar)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(varNomePlan)
+                        .addComponent(varMensalidade, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)))
+                .addContainerGap(86, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(lbTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbNome)
+                    .addComponent(varNomePlan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(32, 32, 32)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbMensalidade)
+                    .addComponent(varMensalidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
+                .addComponent(btSalvar)
+                .addGap(45, 45, 45))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
+        if (tipoPlan == null) {
+            tipoPlan = new TipoPlan();
+            tipoPlan.setNomePlan(varNomePlan.getText().trim());
+            tipoPlan.setMensalidade(Double.parseDouble(varMensalidade.getText().trim()));
+        } else {
+            tipoPlan.setNomePlan(varNomePlan.getText().trim());
+            tipoPlan.setMensalidade(Double.parseDouble(varMensalidade.getText().trim()));
+            tipoPlan.setCodPlan(cod);
+        }
+        try {
+            if(tipoPlan.getCodPlan() == null) {
+                tipoPlanDao.salvar(tipoPlan);
+                JOptionPane.showMessageDialog(null, "Salvo com sucesso!!");
+            } else {
+                tipoPlanDao.alterar(tipoPlan);
+                JOptionPane.showMessageDialog(null, "Alterado com sucesso!!");
+                new PlanosHome().setVisible(true);
+                dispose();
+            }
+        } catch (Exception e) {
+            System.out.println("Erro ao salvar/alterar os dados do plano " + e.getMessage());
+        }
+    }//GEN-LAST:event_btSalvarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -79,5 +168,11 @@ public class cadastroPlano extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btSalvar;
+    private javax.swing.JLabel lbMensalidade;
+    private javax.swing.JLabel lbNome;
+    private javax.swing.JLabel lbTitulo;
+    private javax.swing.JTextField varMensalidade;
+    private javax.swing.JTextField varNomePlan;
     // End of variables declaration//GEN-END:variables
 }
