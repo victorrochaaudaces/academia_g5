@@ -25,18 +25,18 @@ public class FuncionarioDaoImpl implements FuncionarioDao {
     @Override
     public void salvar(Funcionario funcionario) throws Exception {
         String comando = "INSERT INTO funcionario_acad\n"
-                + "(nome, sobrenome, cpf, endereco, email, idade, telefone, senha, cargo) VALUES\n"
-                + "(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                + " (nome, sobrenome, cpf, endereco, email, idade, telefone, senha, cargo) VALUES\n"
+                + " (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try {
             conn = ConnectionDb.ConDb();
             prepareSql = conn.prepareStatement(comando);
             prepareSql.setString(1, funcionario.getNome());
             prepareSql.setString(2, funcionario.getSobrenome());
-            prepareSql.setDouble(3, funcionario.getCpf());
+            prepareSql.setLong(3, funcionario.getCpf());
             prepareSql.setString(4, funcionario.getEndereco());
             prepareSql.setString(5, funcionario.getEmail());
             prepareSql.setInt(6, funcionario.getIdade());
-            prepareSql.setDouble(7, funcionario.getTelefone());
+            prepareSql.setLong(7, funcionario.getTelefone());
             prepareSql.setString(8, funcionario.getSenha());
             prepareSql.setString(9, funcionario.getCargo());
             prepareSql.executeUpdate();
@@ -58,11 +58,11 @@ public class FuncionarioDaoImpl implements FuncionarioDao {
             prepareSql = conn.prepareStatement(comando);
             prepareSql.setString(1, funcionario.getNome());
             prepareSql.setString(2, funcionario.getSobrenome());
-            prepareSql.setDouble(3, funcionario.getCpf());
+            prepareSql.setLong(3, funcionario.getCpf());
             prepareSql.setString(4, funcionario.getEndereco());
             prepareSql.setString(5, funcionario.getEmail());
             prepareSql.setInt(6, funcionario.getIdade());
-            prepareSql.setDouble(7, funcionario.getTelefone());
+            prepareSql.setLong(7, funcionario.getTelefone());
             prepareSql.setString(8, funcionario.getSenha());
             prepareSql.setString(9, funcionario.getCargo());
             prepareSql.setInt(10, funcionario.getId());
@@ -104,11 +104,11 @@ public class FuncionarioDaoImpl implements FuncionarioDao {
                 funcionario.setId(resultado.getInt("id"));
                 funcionario.setNome(resultado.getString("nome"));
                 funcionario.setSobrenome(resultado.getString("sobrenome"));
-                funcionario.setCpf(resultado.getDouble("cpf"));
+                funcionario.setCpf(resultado.getLong("cpf"));
                 funcionario.setEndereco(resultado.getString("endereco"));
                 funcionario.setEmail(resultado.getString("email"));
                 funcionario.setIdade(resultado.getInt("idade"));
-                funcionario.setTelefone(resultado.getDouble("telefone"));
+                funcionario.setTelefone(resultado.getLong("telefone"));
                 funcionario.setSenha(resultado.getString("senha"));
                 funcionario.setCargo(resultado.getString("cargo"));
             }
@@ -125,7 +125,7 @@ public class FuncionarioDaoImpl implements FuncionarioDao {
     @Override
     public List<Funcionario> pesquisarPorNome(String nome) throws Exception {
         Funcionario funcionario;
-        String comando = "SELECT * FROM funcionario_acad WHERE nome LIKE";
+        String comando = "SELECT * FROM funcionario_acad WHERE nome LIKE ?";
         List<Funcionario> funcionarios = new ArrayList<>();
         try {
             conn = ConnectionDb.ConDb();
@@ -137,11 +137,11 @@ public class FuncionarioDaoImpl implements FuncionarioDao {
                 funcionario.setId(resultado.getInt("id"));
                 funcionario.setNome(resultado.getString("nome"));
                 funcionario.setSobrenome(resultado.getString("sobrenome"));
-                funcionario.setCpf(resultado.getDouble("cpf"));
+                funcionario.setCpf(resultado.getLong("cpf"));
                 funcionario.setEndereco(resultado.getString("endereco"));
                 funcionario.setEmail(resultado.getString("email"));
                 funcionario.setIdade(resultado.getInt("idade"));
-                funcionario.setTelefone(resultado.getDouble("telefone"));
+                funcionario.setTelefone(resultado.getLong("telefone"));
                 funcionario.setSenha(resultado.getString("senha"));
                 funcionario.setCargo(resultado.getString("cargo"));
                 funcionarios.add(funcionario);
@@ -171,11 +171,11 @@ public class FuncionarioDaoImpl implements FuncionarioDao {
                 funcionario.setId(resultado.getInt("id"));
                 funcionario.setNome(resultado.getString("nome"));
                 funcionario.setSobrenome(resultado.getString("sobrenome"));
-                funcionario.setCpf(resultado.getDouble("cpf"));
+                funcionario.setCpf(resultado.getLong("cpf"));
                 funcionario.setEndereco(resultado.getString("endereco"));
                 funcionario.setEmail(resultado.getString("email"));
                 funcionario.setIdade(resultado.getInt("idade"));
-                funcionario.setTelefone(resultado.getDouble("telefone"));
+                funcionario.setTelefone(resultado.getLong("telefone"));
                 funcionario.setSenha(resultado.getString("senha"));
                 funcionario.setCargo(resultado.getString("cargo"));
             }

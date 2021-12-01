@@ -25,6 +25,7 @@ public class HomeFuncionarioLogado extends javax.swing.JFrame {
     public HomeFuncionarioLogado() {
         initComponents();
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -34,6 +35,7 @@ public class HomeFuncionarioLogado extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jMenu2 = new javax.swing.JMenu();
         linkCadastro = new javax.swing.JLabel();
         linkPesquisa = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -41,6 +43,12 @@ public class HomeFuncionarioLogado extends javax.swing.JFrame {
         menuItemCadUsuario = new javax.swing.JMenuItem();
         menu_pesquisa = new javax.swing.JMenu();
         menuItemPesqUsuario = new javax.swing.JMenuItem();
+        menu_planos = new javax.swing.JMenu();
+        TelaPlanos = new javax.swing.JMenuItem();
+        menu_professores = new javax.swing.JMenu();
+        telaprofessores = new javax.swing.JMenuItem();
+
+        jMenu2.setText("jMenu2");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Tela de Home Funcionario");
@@ -66,7 +74,7 @@ public class HomeFuncionarioLogado extends javax.swing.JFrame {
 
         menu_cadastro.setText("Cadastro");
 
-        menuItemCadUsuario.setText("Usuário");
+        menuItemCadUsuario.setText("cadastrar funcionarios");
         menuItemCadUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 menuItemCadUsuarioMousePressed(evt);
@@ -78,7 +86,7 @@ public class HomeFuncionarioLogado extends javax.swing.JFrame {
 
         menu_pesquisa.setText("Pesquisa");
 
-        menuItemPesqUsuario.setText("jMenuItem1");
+        menuItemPesqUsuario.setText("Pesquisar funcionarios");
         menuItemPesqUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 menuItemPesqUsuarioMousePressed(evt);
@@ -87,6 +95,30 @@ public class HomeFuncionarioLogado extends javax.swing.JFrame {
         menu_pesquisa.add(menuItemPesqUsuario);
 
         jMenuBar1.add(menu_pesquisa);
+
+        menu_planos.setText("Planos");
+
+        TelaPlanos.setText("Planos academia");
+        TelaPlanos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                menuItemPlanosMousePressed(evt);
+            }
+        });
+        menu_planos.add(TelaPlanos);
+
+        jMenuBar1.add(menu_planos);
+
+        menu_professores.setText("Professores");
+
+        telaprofessores.setText("Professores academia");
+        telaprofessores.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                menu_professoresMousePressed(evt);
+            }
+        });
+        menu_professores.add(telaprofessores);
+
+        jMenuBar1.add(menu_professores);
 
         setJMenuBar(jMenuBar1);
 
@@ -116,20 +148,34 @@ public class HomeFuncionarioLogado extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void linkCadastroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_linkCadastroMouseClicked
-        // TODO add your handling code here:
+        new CadastroFuncionario().setVisible(true);
+        dispose();
     }//GEN-LAST:event_linkCadastroMouseClicked
 
     private void linkPesquisarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_linkPesquisarMouseClicked
-        // TODO add your handling code here:
+        new PesquisaFuncionario().setVisible(true);
+        dispose();
     }//GEN-LAST:event_linkPesquisarMouseClicked
 
     private void menuItemCadUsuarioMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuItemCadUsuarioMousePressed
-        // TODO add your handling code here:
+        new CadastroFuncionario().setVisible(true);
+        dispose();
     }//GEN-LAST:event_menuItemCadUsuarioMousePressed
 
     private void menuItemPesqUsuarioMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuItemPesqUsuarioMousePressed
-        // TODO add your handling code here:
+        new PesquisaFuncionario().setVisible(true);
+        dispose();
     }//GEN-LAST:event_menuItemPesqUsuarioMousePressed
+
+    private void menu_professoresMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menu_professoresMousePressed
+        new ProfessoresHome().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_menu_professoresMousePressed
+
+    private void menuItemPlanosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuItemPlanosMousePressed
+        new PlanosHome().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_menuItemPlanosMousePressed
 
     /**
      * @param args the command line arguments
@@ -170,6 +216,8 @@ public class HomeFuncionarioLogado extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem TelaPlanos;
+    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JLabel linkCadastro;
     private javax.swing.JLabel linkPesquisa;
@@ -177,5 +225,8 @@ public class HomeFuncionarioLogado extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuItemPesqUsuario;
     private javax.swing.JMenu menu_cadastro;
     private javax.swing.JMenu menu_pesquisa;
+    private javax.swing.JMenu menu_planos;
+    private javax.swing.JMenu menu_professores;
+    private javax.swing.JMenuItem telaprofessores;
     // End of variables declaration//GEN-END:variables
 }

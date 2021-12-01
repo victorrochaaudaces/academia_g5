@@ -116,7 +116,7 @@ public class ProfessorDaoImpl implements ProfessorDao {
         String comando = "select p.cod_prof, p.nm_prof, p.area, f.nome, f.sobrenome, f.cargo, f.id\n"
                 + "from prof p join funcionario_acad f\n"
                 + "on p.id_func = f.id\n"
-                + "where p.nm_prof LIKE";
+                + "where p.nm_prof LIKE ?";
         List<Professor> professores = new ArrayList<>();
         try {
             conn = ConnectionDb.ConDb();

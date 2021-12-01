@@ -159,7 +159,7 @@ public class PesquisarAluno extends javax.swing.JFrame {
             new AlterarDadosAluno(user).setVisible(true);
             dispose();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro ao editard ados de usuário");
+            JOptionPane.showMessageDialog(null, "Algo deu errado! " + e.getMessage());
         }
     }//GEN-LAST:event_btEditarActionPerformed
 

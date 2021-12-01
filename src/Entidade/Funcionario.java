@@ -15,11 +15,11 @@ public class Funcionario {
     private Integer id;
     private String nome;
     private String sobrenome;
-    private double cpf;
+    private long cpf;
     private String endereco;
     private String email;
     private int idade;
-    private double telefone;
+    private long telefone;
     private String senha;
     private String cargo;
 
@@ -57,11 +57,11 @@ public class Funcionario {
         this.sobrenome = sobrenome;
     }
 
-    public double getCpf() {
+    public long getCpf() {
         return cpf;
     }
 
-    public void setCpf(double cpf) {
+    public void setCpf(long cpf) {
         this.cpf = cpf;
     }
 
@@ -89,11 +89,11 @@ public class Funcionario {
         this.idade = idade;
     }
 
-    public double getTelefone() {
+    public long getTelefone() {
         return telefone;
     }
 
-    public void setTelefone(double telefone) {
+    public void setTelefone(long telefone) {
         this.telefone = telefone;
     }
 
