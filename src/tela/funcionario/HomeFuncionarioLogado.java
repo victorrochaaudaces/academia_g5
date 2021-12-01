@@ -2,9 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package tela;
+package tela.funcionario;
 
+import tela.funcionario.CadastroFuncionario;
 import entidade.Funcionario;
+import tela.planos.PlanosHome;
+import tela.professor.ProfessoresHome;
 
 /**
  *
@@ -52,7 +55,6 @@ public class HomeFuncionarioLogado extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Tela de Home Funcionario");
-        setPreferredSize(new java.awt.Dimension(500, 400));
 
         linkCadastro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagem/adicionar-usuario _64.png"))); // NOI18N
         linkCadastro.setBorder(javax.swing.BorderFactory.createEtchedBorder());

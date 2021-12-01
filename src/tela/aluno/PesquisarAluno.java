@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package tela;
+package tela.aluno;
 
+import tela.aluno.AlterarDadosAluno;
 import entidade.User;
 import entidadeDao.UserDao;
 import entidadeDao.UserDaoImpl;

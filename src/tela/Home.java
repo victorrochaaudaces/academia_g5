@@ -5,6 +5,9 @@
  */
 package tela;
 
+import tela.funcionario.TelaLoginFuncionario;
+import tela.aluno.TelaLoginAluno;
+import tela.aluno.CadastroAluno;
 import javax.swing.JOptionPane;
 
 /**

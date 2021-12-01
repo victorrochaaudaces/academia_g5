@@ -3,12 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package tela;
+package tela.funcionario;
 
+import tela.funcionario.HomeFuncionarioLogado;
 import entidade.Funcionario;
 import entidadeDao.FuncionarioDao;
 import entidadeDao.FuncionarioDaoImpl;
 import javax.swing.JOptionPane;
+import tela.Home;
 
 /**
  *

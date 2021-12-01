@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package tela;
+package tela.aluno;
 
 import entidade.TipoPlan;
 import entidadeDao.UserDao;
@@ -80,7 +80,6 @@ public class AlterarDadosAluno extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Tela de cadastro");
-        setPreferredSize(new java.awt.Dimension(600, 600));
 
         lbTitulo.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         lbTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
