@@ -173,7 +173,7 @@ public class PesquisarProfessor extends javax.swing.JFrame {
                 professors = professorDao.pesquisarPorNome(nome);
                 popularTabela();
             } catch (Exception e) {
-                System.out.println("Erro ao pesquisar por nome " + e.getMessage());
+                JOptionPane.showMessageDialog(null, "Algo deu errado! " + e.getMessage());
             }
         }
     }//GEN-LAST:event_btPesquisarActionPerformed
@@ -194,7 +194,7 @@ public class PesquisarProfessor extends javax.swing.JFrame {
             new CadastroProfessor(professor).setVisible(true);
             dispose();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro ao carregar dados, selecione uma linha");
+            JOptionPane.showMessageDialog(null, "Algo deu errado! " + e.getMessage());
         }
     }//GEN-LAST:event_btAlterarActionPerformed
 
@@ -209,7 +209,7 @@ public class PesquisarProfessor extends javax.swing.JFrame {
             popularTabela();
             varNome.setText(null);
         } catch (Exception e) {
-             JOptionPane.showMessageDialog(null, "Erro ao excluir dados do professor, por favor selecione uma linha");
+            JOptionPane.showMessageDialog(null, "Algo deu errado! " + e.getMessage());
         }
     }//GEN-LAST:event_btDeletarActionPerformed
 

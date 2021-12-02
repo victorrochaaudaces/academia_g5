@@ -147,7 +147,7 @@ public class cadastroPlano extends javax.swing.JFrame {
                 dispose();
             }
         } catch (Exception e) {
-            System.out.println("Erro ao salvar/alterar os dados do plano " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Algo deu errado! " + e.getMessage());
         }
     }//GEN-LAST:event_btSalvarActionPerformed
 

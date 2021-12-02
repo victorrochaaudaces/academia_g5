@@ -48,6 +48,7 @@ public class PesquisaFuncionario extends javax.swing.JFrame {
         btAlterar = new javax.swing.JButton();
         btDeletar = new javax.swing.JButton();
         btVoltar = new javax.swing.JButton();
+        btMostrarTodos = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Pesquisar  um cadastro de funcionário");
@@ -103,6 +104,13 @@ public class PesquisaFuncionario extends javax.swing.JFrame {
             }
         });
 
+        btMostrarTodos.setText("Mostrar todos");
+        btMostrarTodos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btMostrarTodosActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -117,15 +125,17 @@ public class PesquisaFuncionario extends javax.swing.JFrame {
                         .addComponent(btVoltar)
                         .addGap(79, 79, 79)
                         .addComponent(btDeletar))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(lbNomePesquisar)
                             .addGap(18, 18, 18)
                             .addComponent(varNomePesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btPesquisar))
+                            .addGap(18, 18, 18)
+                            .addComponent(btPesquisar)
+                            .addGap(18, 18, 18)
+                            .addComponent(btMostrarTodos))
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(77, Short.MAX_VALUE))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -135,7 +145,8 @@ public class PesquisaFuncionario extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbNomePesquisar)
                     .addComponent(varNomePesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btPesquisar))
+                    .addComponent(btPesquisar)
+                    .addComponent(btMostrarTodos))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -159,7 +170,7 @@ public class PesquisaFuncionario extends javax.swing.JFrame {
                 funcionarios = funcionarioDao.pesquisarPorNome(nome);
                 popularTabela();
             } catch (Exception e) {
-                System.out.println("Erro ao pesquisar funcionario por nome " + e.getMessage());
+                JOptionPane.showMessageDialog(null, "Algo deu errado! " + e.getMessage());
             }
         }
     }//GEN-LAST:event_btPesquisarActionPerformed
@@ -186,7 +197,7 @@ public class PesquisaFuncionario extends javax.swing.JFrame {
             popularTabela();
 //            varNomePesquisar.setText(null);
         } catch (Exception e) {
-            System.out.println("Erro ao excluir cadastro do funcionário " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Algo deu errado! " + e.getMessage());
         }
     }//GEN-LAST:event_btDeletarActionPerformed
 
@@ -194,6 +205,15 @@ public class PesquisaFuncionario extends javax.swing.JFrame {
        new HomeFuncionarioLogado().setVisible(true);
        dispose();
     }//GEN-LAST:event_btVoltarActionPerformed
+
+    private void btMostrarTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btMostrarTodosActionPerformed
+        try {
+            funcionarios = funcionarioDao.pesquisarTodo();
+            popularTabela();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Algo deu errado! " + e.getMessage());
+        }
+    }//GEN-LAST:event_btMostrarTodosActionPerformed
 
     private void popularTabela() {
         tabelaModelo = (DefaultTableModel) TabelaFuncionario.getModel();
@@ -243,6 +263,7 @@ public class PesquisaFuncionario extends javax.swing.JFrame {
     private javax.swing.JTable TabelaFuncionario;
     private javax.swing.JButton btAlterar;
     private javax.swing.JButton btDeletar;
+    private javax.swing.JButton btMostrarTodos;
     private javax.swing.JButton btPesquisar;
     private javax.swing.JButton btVoltar;
     private javax.swing.JLabel jLabel1;

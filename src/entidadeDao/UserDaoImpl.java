@@ -88,7 +88,7 @@ public class UserDaoImpl implements UserDao {
     public void excluir(int matricula) throws Exception {
         try {
             conn = ConnectionDb.ConDb();
-            prepareSql = conn.prepareStatement("DELETE FROM aluno WHERE matricula = ?");
+            prepareSql = conn.prepareStatement("DELETE FROM aluno_acad WHERE matricula = ?");
             prepareSql.setInt(1, matricula);
             prepareSql.executeUpdate();
         } catch (Exception e) {
@@ -229,6 +229,49 @@ public class UserDaoImpl implements UserDao {
             resultado.close();
         }
         return user;
+    }
+
+    @Override
+    public List<User> pesquisarTodo() throws Exception {
+        User user;
+        String comando = "select a.*, p.* \n"
+                + "from aluno_acad a join tipo_plan p\n"
+                + "on a.cod_plan = p.cod_Plan;";
+        List<User> users = new ArrayList<>();
+        try {
+            conn = ConnectionDb.ConDb();
+            prepareSql = conn.prepareStatement(comando);
+            resultado = prepareSql.executeQuery();
+            TipoPlan tipoPlan;
+            while (resultado.next()) {
+                user = new User();
+                user.setMatricula(resultado.getInt("matricula"));
+                user.setNome(resultado.getString("nome"));
+                user.setSobrenome(resultado.getString("sobrenome"));
+                user.setEmail(resultado.getString("email"));
+                user.setEndereco(resultado.getString("endereco"));
+                user.setIdade(resultado.getInt("idade"));
+                user.setRest_med(resultado.getString("rest_med"));
+                user.setNum_tel(resultado.getLong("num_tel"));
+                user.setPeso(resultado.getDouble("peso"));
+                user.setAltura(resultado.getDouble("altura"));
+                tipoPlan = new TipoPlan(
+                        resultado.getInt("cod_plan"),
+                        resultado.getString("nm_plan"),
+                        resultado.getDouble("mensalidade")
+                );
+                user.setTipoPlan(tipoPlan);
+                user.setSenha(resultado.getString("senha"));
+                users.add(user);
+            }
+        } catch (Exception e) {
+            System.out.println("Erro ao pegar dados dos alunos " + e.getMessage());
+        } finally {
+            conn.close();
+            prepareSql.close();
+            resultado.close();
+        }
+        return users;
     }
 
 }

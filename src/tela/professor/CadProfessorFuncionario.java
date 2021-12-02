@@ -9,6 +9,7 @@ import entidade.Funcionario;
 import entidadeDao.FuncionarioDao;
 import entidadeDao.FuncionarioDaoImpl;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -137,7 +138,7 @@ public class CadProfessorFuncionario extends javax.swing.JFrame {
             funcionarios = funcionarioDao.pesquisarTodo();
             popularTabela();
         } catch (Exception e) {
-            System.out.println("Erro ao pesquisar funcionarios " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Algo deu errado! " + e.getMessage());
         }
     }//GEN-LAST:event_btcarregarFubcionariosActionPerformed
 

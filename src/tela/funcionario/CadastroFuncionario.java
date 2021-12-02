@@ -250,10 +250,10 @@ public class CadastroFuncionario extends javax.swing.JFrame {
                 funcionarioDao.alterar(funcionario);
                 JOptionPane.showMessageDialog(null, "Alterado com sucesso!!");
             }
-            new TelaLoginFuncionario().setVisible(true);
+            new HomeFuncionarioLogado().setVisible(true);
             dispose();
         } catch (Exception e) {
-            System.out.println("Erro ao salvar ou alterar os dados do funcionário " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Algo deu errado! " + e.getMessage());
         }
     }//GEN-LAST:event_btCadastroFuncionarioActionPerformed
 

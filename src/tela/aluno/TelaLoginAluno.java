@@ -137,7 +137,7 @@ public class TelaLoginAluno extends javax.swing.JFrame {
                 dispose();
             }
         } catch (Exception e) {
-            System.out.println("Erro aou logar " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Algo deu errado! " + e.getMessage());
         } 
     }//GEN-LAST:event_logarActionPerformed
 

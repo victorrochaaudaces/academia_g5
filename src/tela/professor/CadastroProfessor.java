@@ -181,7 +181,7 @@ public class CadastroProfessor extends javax.swing.JFrame {
             new ProfessoresHome().setVisible(true);
             dispose();
         } catch (Exception e) {
-            System.out.println("Erro ao salvar ou alterar os dados do professor " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Algo deu errado! " + e.getMessage());
         }
     }//GEN-LAST:event_btSalvarActionPerformed
 

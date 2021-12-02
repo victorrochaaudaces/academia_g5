@@ -12,6 +12,8 @@ import entidadeDao.UserDaoImpl;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import tela.funcionario.AlterarDadosAlunoFuncionario;
+import tela.funcionario.HomeFuncionarioLogado;
 
 /**
  *
@@ -51,6 +53,7 @@ public class PesquisarAluno extends javax.swing.JFrame {
         btEditar = new javax.swing.JButton();
         btDeletar = new javax.swing.JButton();
         btVoltar = new javax.swing.JButton();
+        btPesquisaTodos = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("ALterar dados do cadastro");
@@ -73,13 +76,13 @@ public class PesquisarAluno extends javax.swing.JFrame {
 
         tabelaAluno.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Nome", "Sobrenome", "Email", "Plano"
+                "Nome", "Email", "Plano"
             }
         ));
         jScrollPane1.setViewportView(tabelaAluno);
@@ -107,28 +110,40 @@ public class PesquisarAluno extends javax.swing.JFrame {
             }
         });
 
+        btPesquisaTodos.setText("Mostrar todos");
+        btPesquisaTodos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btPesquisaTodosActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(lbTitulo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(88, 88, 88)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btEditar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btVoltar)
-                        .addGap(96, 96, 96)
-                        .addComponent(btDeletar))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
+                        .addGap(25, 25, 25)
                         .addComponent(lbNomePesquisa)
                         .addGap(18, 18, 18)
                         .addComponent(varNome, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(27, 27, 27)
-                        .addComponent(btPesquisar)))
-                .addContainerGap(96, Short.MAX_VALUE))
+                        .addGap(32, 32, 32)
+                        .addComponent(btPesquisar)
+                        .addGap(18, 18, 18)
+                        .addComponent(btPesquisaTodos))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(88, 88, 88)
+                        .addComponent(btEditar)
+                        .addGap(126, 126, 126)
+                        .addComponent(btVoltar)
+                        .addGap(92, 92, 92)
+                        .addComponent(btDeletar))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(43, 43, 43)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 490, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -138,7 +153,8 @@ public class PesquisarAluno extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbNomePesquisa)
                     .addComponent(varNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btPesquisar))
+                    .addComponent(btPesquisar)
+                    .addComponent(btPesquisaTodos))
                 .addGap(31, 31, 31)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -162,7 +178,7 @@ public class PesquisarAluno extends javax.swing.JFrame {
                 users = userDao.pesquisarporNome(nome);
                 popularTabela();
             } catch (Exception e) {
-                System.out.println("Erro ao pesquisar por nome " + e.getMessage());
+                JOptionPane.showMessageDialog(null, "Algo deu errado! " + e.getMessage());
             }
         }
     }//GEN-LAST:event_btPesquisarActionPerformed
@@ -171,7 +187,7 @@ public class PesquisarAluno extends javax.swing.JFrame {
        int linhaSelecionada = tabelaAluno.getSelectedRow();
         try {
             User user = users.get(linhaSelecionada);
-            new AlterarDadosAluno(user).setVisible(true);
+            new AlterarDadosAlunoFuncionario(user).setVisible(true);
             dispose();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Algo deu errado! " + e.getMessage());
@@ -189,20 +205,29 @@ public class PesquisarAluno extends javax.swing.JFrame {
             popularTabela();
             varNome.setText(null);
         } catch (Exception e) {
-            System.out.println("Erro ao excluir cadastro do aluno " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Algo deu errado! " + e.getMessage());
         }
     }//GEN-LAST:event_btDeletarActionPerformed
 
     private void btVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVoltarActionPerformed
-        new HomeAlunoLogado(user).setVisible(true);
+        new HomeFuncionarioLogado().setVisible(true);
         dispose();
     }//GEN-LAST:event_btVoltarActionPerformed
+
+    private void btPesquisaTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPesquisaTodosActionPerformed
+        try {
+            users = userDao.pesquisarTodo();
+            popularTabela();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Algo deu errado! " + e.getMessage());
+        }
+    }//GEN-LAST:event_btPesquisaTodosActionPerformed
 
     private void popularTabela() {
         tabelaModelo = (DefaultTableModel) tabelaAluno.getModel();
         tabelaModelo.setNumRows(0);
         for (User user : users) {
-            tabelaModelo.addRow(new Object[]{user.getNome(), user.getSobrenome(), user.getEmail(), user.getTipoPlan().getNomePlan()});
+            tabelaModelo.addRow(new Object[]{user.getNome() + " " + user.getSobrenome(), user.getEmail(), user.getTipoPlan().getNomePlan()});
         }
     }
 
@@ -245,6 +270,7 @@ public class PesquisarAluno extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btDeletar;
     private javax.swing.JButton btEditar;
+    private javax.swing.JButton btPesquisaTodos;
     private javax.swing.JButton btPesquisar;
     private javax.swing.JButton btVoltar;
     private javax.swing.JScrollPane jScrollPane1;

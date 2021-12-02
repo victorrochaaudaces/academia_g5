@@ -160,7 +160,7 @@ public class HomeAlunoLogado extends javax.swing.JFrame {
     }//GEN-LAST:event_btSairActionPerformed
 
     private void btAlterarDadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAlterarDadosActionPerformed
-       new PesquisarAluno(user).setVisible(true);
+       new AlterarDadosAluno(user).setVisible(true);
        dispose();
     }//GEN-LAST:event_btAlterarDadosActionPerformed
 

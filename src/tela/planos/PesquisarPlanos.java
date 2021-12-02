@@ -52,6 +52,7 @@ public class PesquisarPlanos extends javax.swing.JFrame {
         btDeletar = new javax.swing.JButton();
         btAlterar = new javax.swing.JButton();
         btVoltar = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         jLabel1.setText("jLabel1");
 
@@ -108,28 +109,40 @@ public class PesquisarPlanos extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setText("Mostrar todos");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(lbTitulo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(38, 38, 38)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
                         .addComponent(lbNomePlano, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(varNomePlano, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btPesuisar))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btDeletar)
-                        .addGap(48, 48, 48)
-                        .addComponent(btVoltar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btAlterar))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(48, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(varNomePlano, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btPesuisar, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(38, 38, 38)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(btDeletar)
+                                .addGap(48, 48, 48)
+                                .addComponent(btVoltar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btAlterar))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -139,7 +152,8 @@ public class PesquisarPlanos extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbNomePlano)
                     .addComponent(varNomePlano, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btPesuisar))
+                    .addComponent(btPesuisar)
+                    .addComponent(jButton1))
                 .addGap(11, 11, 11)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
@@ -157,17 +171,13 @@ public class PesquisarPlanos extends javax.swing.JFrame {
     private void btPesuisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPesuisarActionPerformed
         String nome = varNomePlano.getText().trim();
         if (nome.length() > 2) {
-            try {
-                planos = tipoPlanDao.pesquisarTodo();
-                populatTabela();
-            } catch (Exception e) {
-            }
+            JOptionPane.showMessageDialog(null, "por favor digite mais de 2 letras!!");
         } else {
             try {
                 planos = tipoPlanDao.pesquisarPorNome(nome);
                 populatTabela();
             } catch (Exception e) {
-                System.out.println("Erro ao pesquisar por nome " + e.getMessage());
+                JOptionPane.showMessageDialog(null, "Algo deu errado! " + e.getMessage());
             }
         }
     }//GEN-LAST:event_btPesuisarActionPerformed
@@ -183,7 +193,7 @@ public class PesquisarPlanos extends javax.swing.JFrame {
             populatTabela();
             varNomePlano.setText(null);
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro ao excluir, você precisa selecionar uma linha");
+            JOptionPane.showMessageDialog(null, "Algo deu errado! " + e.getMessage());
         }
     }//GEN-LAST:event_btDeletarActionPerformed
 
@@ -194,7 +204,7 @@ public class PesquisarPlanos extends javax.swing.JFrame {
             new cadastroPlano(tipoPlan).setVisible(true);
             dispose();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro ao carregar dados, por favor selecione uma linha para alterar os dados!");
+           JOptionPane.showMessageDialog(null, "Algo deu errado! " + e.getMessage());
         }
     }//GEN-LAST:event_btAlterarActionPerformed
 
@@ -202,6 +212,15 @@ public class PesquisarPlanos extends javax.swing.JFrame {
         new PlanosHome().setVisible(true);
         dispose();
     }//GEN-LAST:event_btVoltarActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        try {
+            planos = tipoPlanDao.pesquisarTodo();
+            populatTabela();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Algo deu errado! " + e.getMessage());
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -243,6 +262,7 @@ public class PesquisarPlanos extends javax.swing.JFrame {
     private javax.swing.JButton btDeletar;
     private javax.swing.JButton btPesuisar;
     private javax.swing.JButton btVoltar;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbNomePlano;

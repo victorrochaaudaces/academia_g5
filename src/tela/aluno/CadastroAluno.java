@@ -231,7 +231,7 @@ public class CadastroAluno extends javax.swing.JFrame {
             new TelaLoginAluno().setVisible(true);
             dispose();
         } catch (Exception e) {
-            System.out.println("Erro ao cadastrar um aluno! " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Algo deu errado! " + e.getMessage());
         }
     }//GEN-LAST:event_btCadastrarActionPerformed
 
@@ -246,7 +246,7 @@ public class CadastroAluno extends javax.swing.JFrame {
             planos = tipoPlanDao.pesquisarTodo();
             carregarComboPlan(planos);
         } catch (Exception e) {
-            System.out.println("Erro ao carregar combobox " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Algo deu errado! " + e.getMessage());
         }
     }
 

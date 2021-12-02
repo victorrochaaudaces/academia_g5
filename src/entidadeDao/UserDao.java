@@ -24,4 +24,6 @@ public interface UserDao {
     List<User> pesquisarporNome(String nome) throws Exception;
 
     User logar(String email, String senha) throws Exception;
+
+    List<User> pesquisarTodo() throws Exception;
 }
