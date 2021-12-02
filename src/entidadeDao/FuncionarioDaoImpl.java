@@ -189,4 +189,37 @@ public class FuncionarioDaoImpl implements FuncionarioDao {
         return funcionario;
     }
 
+    @Override
+    public List<Funcionario> pesquisarTodo() throws Exception {
+        String comando = "SELECT * FROM funcionario_acad";
+        List<Funcionario> funcionarios = new ArrayList<>();
+        try {
+            conn = ConnectionDb.ConDb();
+            prepareSql = conn.prepareStatement(comando);
+            resultado = prepareSql.executeQuery();
+            Funcionario funcionario;
+            while (resultado.next()) {
+                funcionario = new Funcionario();
+                funcionario.setId(resultado.getInt("id"));
+                funcionario.setNome(resultado.getString("nome"));
+                funcionario.setSobrenome(resultado.getString("sobrenome"));
+                funcionario.setCpf(resultado.getLong("cpf"));
+                funcionario.setEndereco(resultado.getString("endereco"));
+                funcionario.setEmail(resultado.getString("email"));
+                funcionario.setIdade(resultado.getInt("idade"));
+                funcionario.setTelefone(resultado.getLong("telefone"));
+                funcionario.setSenha(resultado.getString("senha"));
+                funcionario.setCargo(resultado.getString("cargo"));
+                funcionarios.add(funcionario);
+            }
+        } catch (Exception e) {
+            System.out.println("Erro ao pegar os dados de todos os funcionários " + e.getMessage());
+        } finally {
+            conn.close();
+            prepareSql.close();
+            resultado.close();
+        }
+        return funcionarios;
+    }
+
 }

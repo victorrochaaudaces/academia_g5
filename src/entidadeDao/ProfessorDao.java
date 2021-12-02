@@ -23,4 +23,6 @@ public interface ProfessorDao {
     Professor pesquisarPorId(int codProf) throws Exception;
 
     List<Professor> pesquisarPorNome(String nmProf) throws Exception;
+    
+    List<Professor> pesquisarTodo()throws Exception;
 }

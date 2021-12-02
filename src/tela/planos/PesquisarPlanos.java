@@ -173,6 +173,7 @@ public class PesquisarPlanos extends javax.swing.JFrame {
     }//GEN-LAST:event_btPesuisarActionPerformed
 
     private void btDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btDeletarActionPerformed
+        JOptionPane.showConfirmDialog(null, "tem certeza que deseja excluir estes dados?");
         int linhaSelecionada = tabelaPlanos.getSelectedRow();
         try {
             tipoPlan = planos.get(linhaSelecionada);
@@ -198,8 +199,8 @@ public class PesquisarPlanos extends javax.swing.JFrame {
     }//GEN-LAST:event_btAlterarActionPerformed
 
     private void btVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVoltarActionPerformed
-       new PlanosHome().setVisible(true);
-       dispose();
+        new PlanosHome().setVisible(true);
+        dispose();
     }//GEN-LAST:event_btVoltarActionPerformed
 
     /**

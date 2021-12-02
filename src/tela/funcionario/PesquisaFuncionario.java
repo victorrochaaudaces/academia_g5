@@ -17,7 +17,7 @@ import javax.swing.table.DefaultTableModel;
  * @author victo
  */
 public class PesquisaFuncionario extends javax.swing.JFrame {
-    
+
     private FuncionarioDao funcionarioDao = new FuncionarioDaoImpl();
     private List<Funcionario> funcionarios;
     private DefaultTableModel tabelaModelo;
@@ -47,6 +47,7 @@ public class PesquisaFuncionario extends javax.swing.JFrame {
         btPesquisar = new javax.swing.JButton();
         btAlterar = new javax.swing.JButton();
         btDeletar = new javax.swing.JButton();
+        btVoltar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Pesquisar  um cadastro de funcionário");
@@ -95,6 +96,13 @@ public class PesquisaFuncionario extends javax.swing.JFrame {
             }
         });
 
+        btVoltar.setText("Voltar");
+        btVoltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btVoltarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -102,21 +110,22 @@ public class PesquisaFuncionario extends javax.swing.JFrame {
             .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGap(71, 71, 71)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(lbNomePesquisar)
-                        .addGap(18, 18, 18)
-                        .addComponent(varNomePesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btPesquisar))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btAlterar)
+                        .addGap(87, 87, 87)
+                        .addComponent(btVoltar)
+                        .addGap(79, 79, 79)
+                        .addComponent(btDeletar))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(lbNomePesquisar)
+                            .addGap(18, 18, 18)
+                            .addComponent(varNomePesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btPesquisar))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(77, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(132, 132, 132)
-                .addComponent(btAlterar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btDeletar)
-                .addGap(126, 126, 126))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -132,7 +141,8 @@ public class PesquisaFuncionario extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btAlterar)
-                    .addComponent(btDeletar))
+                    .addComponent(btDeletar)
+                    .addComponent(btVoltar))
                 .addContainerGap(35, Short.MAX_VALUE))
         );
 
@@ -141,17 +151,17 @@ public class PesquisaFuncionario extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPesquisarActionPerformed
-       String nome = varNomePesquisar.getText().trim();
-       if(nome.length() > 3) {
-           JOptionPane.showMessageDialog(null, "Você precisa digitar no minimo 3 letras!!");
-       } else {
-           try {
-               funcionarios = funcionarioDao.pesquisarPorNome(nome);
-               popularTabela();
-           } catch (Exception e) {
-               System.out.println("Erro ao pesquisar funcionario por nome " + e.getMessage());
-           }
-       }
+        String nome = varNomePesquisar.getText().trim();
+        if (nome.length() > 3) {
+            JOptionPane.showMessageDialog(null, "Você precisa digitar no minimo 3 letras!!");
+        } else {
+            try {
+                funcionarios = funcionarioDao.pesquisarPorNome(nome);
+                popularTabela();
+            } catch (Exception e) {
+                System.out.println("Erro ao pesquisar funcionario por nome " + e.getMessage());
+            }
+        }
     }//GEN-LAST:event_btPesquisarActionPerformed
 
     private void btAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAlterarActionPerformed
@@ -166,7 +176,7 @@ public class PesquisaFuncionario extends javax.swing.JFrame {
     }//GEN-LAST:event_btAlterarActionPerformed
 
     private void btDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btDeletarActionPerformed
-        JOptionPane.showConfirmDialog(null, "Tem certeza que quer deletar estes dados!");
+        JOptionPane.showConfirmDialog(null, "tem certeza que deseja excluir estes dados?");
         int linhaSelecionada = TabelaFuncionario.getSelectedRow();
         try {
             funcionario = funcionarios.get(linhaSelecionada);
@@ -180,13 +190,19 @@ public class PesquisaFuncionario extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btDeletarActionPerformed
 
+    private void btVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVoltarActionPerformed
+       new HomeFuncionarioLogado().setVisible(true);
+       dispose();
+    }//GEN-LAST:event_btVoltarActionPerformed
+
     private void popularTabela() {
         tabelaModelo = (DefaultTableModel) TabelaFuncionario.getModel();
         tabelaModelo.setNumRows(0);
         for (Funcionario funcionario : funcionarios) {
-            tabelaModelo.addRow(new Object[] {funcionario.getNome(), funcionario.getSobrenome(), funcionario.getEmail(), funcionario.getCargo()});
+            tabelaModelo.addRow(new Object[]{funcionario.getNome(), funcionario.getSobrenome(), funcionario.getEmail(), funcionario.getCargo()});
         }
     }
+
     /**
      * @param args the command line arguments
      */
@@ -228,6 +244,7 @@ public class PesquisaFuncionario extends javax.swing.JFrame {
     private javax.swing.JButton btAlterar;
     private javax.swing.JButton btDeletar;
     private javax.swing.JButton btPesquisar;
+    private javax.swing.JButton btVoltar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbNomePesquisar;

@@ -11,10 +11,17 @@ package entidade;
  * @author victor.rocha
  */
 public class Professor {
+    
     private Integer codProf;
     private String nmProf;
     private Funcionario funcionario;
     private String area;
+    
+    public Professor() {
+        
+    }
+    
+    
 
     public String getArea() {
         return area;

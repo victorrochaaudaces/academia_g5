@@ -42,8 +42,18 @@ public class ProfessoresHome extends javax.swing.JFrame {
         lbTitulo.setText("Professores da academia");
 
         btPesquisarProfessor.setText("Pesquisar");
+        btPesquisarProfessor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btPesquisarProfessorActionPerformed(evt);
+            }
+        });
 
         btCadastrarProfessor.setText("Cadastrar");
+        btCadastrarProfessor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btCadastrarProfessorActionPerformed(evt);
+            }
+        });
 
         btVoltar.setText("Voltar");
         btVoltar.addActionListener(new java.awt.event.ActionListener() {
@@ -89,6 +99,16 @@ public class ProfessoresHome extends javax.swing.JFrame {
         new HomeFuncionarioLogado().setVisible(true);
         dispose();
     }//GEN-LAST:event_btVoltarActionPerformed
+
+    private void btPesquisarProfessorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPesquisarProfessorActionPerformed
+        new PesquisarProfessor().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btPesquisarProfessorActionPerformed
+
+    private void btCadastrarProfessorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCadastrarProfessorActionPerformed
+        new CadProfessorFuncionario().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btCadastrarProfessorActionPerformed
 
     /**
      * @param args the command line arguments

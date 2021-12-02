@@ -147,5 +147,33 @@ public class ProfessorDaoImpl implements ProfessorDao {
         return professores;
     }
 
+    @Override
+    public List<Professor> pesquisarTodo() throws Exception {
+        Professor professor;
+        String comando = "SELECT * FROM prof";
+        List<Professor> professores = new ArrayList<>();
+        try {
+            conn = ConnectionDb.ConDb();
+            prepareSql = conn.prepareStatement(comando);
+            resultado = prepareSql.executeQuery();
+            Funcionario funcionario;
+            while (resultado.next()) {
+                professor = new Professor();
+                professor.setCodProf(resultado.getInt("cod_prof"));
+                professor.setNmProf(resultado.getString("nm_prof"));
+                funcionario = new Funcionario(resultado.getInt("id_func"));
+                professor.setFuncionario(funcionario);
+                professor.setArea(resultado.getString("area"));
+                professores.add(professor);
+            }
+        } catch (Exception e) {
+            System.out.println("Erro ao pesquisar todos os professores " + e.getMessage());
+        } finally {
+            conn.close();
+            prepareSql.close();
+            resultado.close();
+        }
+        return professores;
+    }
 
 }

@@ -32,6 +32,10 @@ public class Funcionario {
         this.sobrenome = sobrenome;
         this.id = id;
     }
+    
+    public Funcionario(Integer id) {
+        this.id = id;
+    }
 
     public Integer getId() {
         return id;

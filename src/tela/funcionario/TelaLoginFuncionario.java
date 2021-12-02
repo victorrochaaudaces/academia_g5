@@ -41,6 +41,8 @@ public class TelaLoginFuncionario extends javax.swing.JFrame {
         varSenhaFuncionario = new javax.swing.JPasswordField();
         btLogarFuncionario = new javax.swing.JButton();
         btSair = new javax.swing.JButton();
+        btCadastroFuncionarioTeste = new javax.swing.JButton();
+        lbcadastrese = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Tela de login do funcionario");
@@ -69,6 +71,15 @@ public class TelaLoginFuncionario extends javax.swing.JFrame {
             }
         });
 
+        btCadastroFuncionarioTeste.setText("Cadastre-se");
+        btCadastroFuncionarioTeste.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btCadastroFuncionarioTesteActionPerformed(evt);
+            }
+        });
+
+        lbcadastrese.setText("Caso não tenha um cadastro:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -87,11 +98,18 @@ public class TelaLoginFuncionario extends javax.swing.JFrame {
                         .addComponent(varLoginFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addGap(90, 90, 90)
-                .addComponent(btLogarFuncionario)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btSair)
-                .addGap(89, 89, 89))
+                .addGap(74, 74, 74)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lbcadastrese, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btCadastroFuncionarioTeste)
+                        .addGap(68, 68, 68))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btLogarFuncionario)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btSair)
+                        .addGap(87, 87, 87))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -105,11 +123,15 @@ public class TelaLoginFuncionario extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbSenhaFuncionario)
                     .addComponent(varSenhaFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
+                .addGap(37, 37, 37)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btLogarFuncionario)
                     .addComponent(btSair))
-                .addGap(46, 46, 46))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btCadastroFuncionarioTeste)
+                    .addComponent(lbcadastrese))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         pack();
@@ -136,6 +158,11 @@ public class TelaLoginFuncionario extends javax.swing.JFrame {
             System.out.println("Erro ao logar funcionario: " + e.getMessage());
         }
     }//GEN-LAST:event_btLogarFuncionarioActionPerformed
+
+    private void btCadastroFuncionarioTesteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCadastroFuncionarioTesteActionPerformed
+        new CadastroFuncionario().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btCadastroFuncionarioTesteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -173,11 +200,13 @@ public class TelaLoginFuncionario extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btCadastroFuncionarioTeste;
     private javax.swing.JButton btLogarFuncionario;
     private javax.swing.JButton btSair;
     private javax.swing.JLabel lbLoginFuncionario;
     private javax.swing.JLabel lbSenhaFuncionario;
     private javax.swing.JLabel lbTitulo;
+    private javax.swing.JLabel lbcadastrese;
     private javax.swing.JTextField varLoginFuncionario;
     private javax.swing.JPasswordField varSenhaFuncionario;
     // End of variables declaration//GEN-END:variables

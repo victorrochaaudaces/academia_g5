@@ -25,5 +25,7 @@ public interface FuncionarioDao {
     List<Funcionario> pesquisarPorNome(String nome) throws Exception;
 
     Funcionario logar(String email, String senha) throws Exception;
+    
+    List<Funcionario> pesquisarTodo()throws Exception;
 
 }

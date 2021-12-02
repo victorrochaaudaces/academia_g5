@@ -250,7 +250,7 @@ public class CadastroFuncionario extends javax.swing.JFrame {
                 funcionarioDao.alterar(funcionario);
                 JOptionPane.showMessageDialog(null, "Alterado com sucesso!!");
             }
-            new HomeFuncionarioLogado().setVisible(true);
+            new TelaLoginFuncionario().setVisible(true);
             dispose();
         } catch (Exception e) {
             System.out.println("Erro ao salvar ou alterar os dados do funcionário " + e.getMessage());

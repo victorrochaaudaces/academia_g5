@@ -32,6 +32,8 @@ public class AlterarDadosAluno extends javax.swing.JFrame {
         initComponents();
         pesquisarPlanoCombobox();
     }
+    
+    
 
     public AlterarDadosAluno(User user) {
         initComponents();

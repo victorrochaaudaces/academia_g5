@@ -3,12 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package tela.aluno;
+package tela.professor;
 
-import tela.aluno.AlterarDadosAluno;
-import entidade.User;
-import entidadeDao.UserDao;
-import entidadeDao.UserDaoImpl;
+import entidade.Professor;
+import entidadeDao.ProfessorDao;
+import entidadeDao.ProfessorDaoImpl;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -17,20 +16,18 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author victor.rocha
  */
-public class PesquisarAluno extends javax.swing.JFrame {
+public class PesquisarProfessor extends javax.swing.JFrame {
 
-    private UserDao userDao = new UserDaoImpl();
-    private List<User> users;
     private DefaultTableModel tabelaModelo;
-    private User user;
+    private List<Professor> professors;
+    private Professor professor;
+    private ProfessorDao professorDao = new ProfessorDaoImpl();
 
-    public PesquisarAluno() {
+    /**
+     * Creates new form PesquisarProfessor
+     */
+    public PesquisarProfessor() {
         initComponents();
-    }
-    
-    public PesquisarAluno(User user) {
-        initComponents();
-        this.user = user;
     }
 
     /**
@@ -43,27 +40,25 @@ public class PesquisarAluno extends javax.swing.JFrame {
     private void initComponents() {
 
         lbTitulo = new javax.swing.JLabel();
-        lbNomePesquisa = new javax.swing.JLabel();
+        lbNome = new javax.swing.JLabel();
         varNome = new javax.swing.JTextField();
         btPesquisar = new javax.swing.JButton();
+        btPesquisarTodo = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tabelaAluno = new javax.swing.JTable();
-        btEditar = new javax.swing.JButton();
+        tabelaProfessor = new javax.swing.JTable();
         btDeletar = new javax.swing.JButton();
+        btAlterar = new javax.swing.JButton();
         btVoltar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("ALterar dados do cadastro");
+        setTitle("Tela de pesquisa de professor");
 
         lbTitulo.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lbTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbTitulo.setText("Alterar dados do cadastro");
-        lbTitulo.setBorder(new javax.swing.border.MatteBorder(null));
+        lbTitulo.setText("Pesquisar dados do professor");
 
-        lbNomePesquisa.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lbNomePesquisa.setText("Nome aluno:");
+        lbNome.setText("Nome:");
 
-        btPesquisar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btPesquisar.setText("Pesquisar");
         btPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -71,32 +66,37 @@ public class PesquisarAluno extends javax.swing.JFrame {
             }
         });
 
-        tabelaAluno.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Nome", "Sobrenome", "Email", "Plano"
-            }
-        ));
-        jScrollPane1.setViewportView(tabelaAluno);
-
-        btEditar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btEditar.setText("Editar");
-        btEditar.addActionListener(new java.awt.event.ActionListener() {
+        btPesquisarTodo.setText("Mostrar todos");
+        btPesquisarTodo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btEditarActionPerformed(evt);
+                btPesquisarTodoActionPerformed(evt);
             }
         });
 
-        btDeletar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        tabelaProfessor.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "Nome do professor", "Area"
+            }
+        ));
+        jScrollPane1.setViewportView(tabelaProfessor);
+
         btDeletar.setText("Deletar");
         btDeletar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btDeletarActionPerformed(evt);
+            }
+        });
+
+        btAlterar.setText("Alterar");
+        btAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btAlterarActionPerformed(evt);
             }
         });
 
@@ -113,53 +113,64 @@ public class PesquisarAluno extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(lbTitulo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(88, 88, 88)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btEditar)
+                        .addGap(24, 24, 24)
+                        .addComponent(lbNome, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(varNome, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btVoltar)
-                        .addGap(96, 96, 96)
-                        .addComponent(btDeletar))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addComponent(btPesquisar)
+                        .addGap(35, 35, 35)
+                        .addComponent(btPesquisarTodo))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(lbNomePesquisa)
-                        .addGap(18, 18, 18)
-                        .addComponent(varNome, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(27, 27, 27)
-                        .addComponent(btPesquisar)))
-                .addContainerGap(96, Short.MAX_VALUE))
+                        .addGap(44, 44, 44)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btDeletar)
+                                .addGap(114, 114, 114)
+                                .addComponent(btVoltar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btAlterar))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(54, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(lbTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
+                .addComponent(lbTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbNomePesquisa)
+                    .addComponent(lbNome)
                     .addComponent(varNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btPesquisar))
-                .addGap(31, 31, 31)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(btPesquisar)
+                    .addComponent(btPesquisarTodo))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btEditar)
                     .addComponent(btDeletar)
+                    .addComponent(btAlterar)
                     .addComponent(btVoltar))
-                .addGap(0, 56, Short.MAX_VALUE))
+                .addGap(0, 31, Short.MAX_VALUE))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVoltarActionPerformed
+        new ProfessoresHome().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btVoltarActionPerformed
+
     private void btPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPesquisarActionPerformed
         String nome = varNome.getText().trim();
         if (nome.length() < 3) {
-            JOptionPane.showMessageDialog(null, "Você precisa digitar no minimo 3 letras!!");
+            JOptionPane.showMessageDialog(null, "Digite pelo menos 3 letras!!");
         } else {
             try {
-                users = userDao.pesquisarporNome(nome);
+                professors = professorDao.pesquisarPorNome(nome);
                 popularTabela();
             } catch (Exception e) {
                 System.out.println("Erro ao pesquisar por nome " + e.getMessage());
@@ -167,42 +178,46 @@ public class PesquisarAluno extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btPesquisarActionPerformed
 
-    private void btEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarActionPerformed
-       int linhaSelecionada = tabelaAluno.getSelectedRow();
+    private void btPesquisarTodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPesquisarTodoActionPerformed
         try {
-            User user = users.get(linhaSelecionada);
-            new AlterarDadosAluno(user).setVisible(true);
+            professors = professorDao.pesquisarTodo();
+            popularTabela();
+        } catch (Exception e) {
+            System.out.println("Erro ao pesquisar todos os professores " + e.getMessage());
+        }
+    }//GEN-LAST:event_btPesquisarTodoActionPerformed
+
+    private void btAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAlterarActionPerformed
+        int linhaSelecionada = tabelaProfessor.getSelectedRow();
+        try {
+            professor = professors.get(linhaSelecionada);
+            new CadastroProfessor(professor).setVisible(true);
             dispose();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Algo deu errado! " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro ao carregar dados, selecione uma linha");
         }
-    }//GEN-LAST:event_btEditarActionPerformed
+    }//GEN-LAST:event_btAlterarActionPerformed
 
     private void btDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btDeletarActionPerformed
         JOptionPane.showConfirmDialog(null, "tem certeza que deseja excluir estes dados?");
-        int linhaSelecionada = tabelaAluno.getSelectedRow();
+        int linhaSelecionada = tabelaProfessor.getSelectedRow();
         try {
-            User user = users.get(linhaSelecionada);
-            userDao.excluir(user.getMatricula());
-            JOptionPane.showMessageDialog(null, "Cadastro excluido com sucesso!!");
-            users.remove(linhaSelecionada);
+            professor = professors.get(linhaSelecionada);
+            professorDao.excluir(professor.getCodProf());
+            JOptionPane.showMessageDialog(null, "Excluído com sucesso!!");
+            professors.remove(linhaSelecionada);
             popularTabela();
             varNome.setText(null);
         } catch (Exception e) {
-            System.out.println("Erro ao excluir cadastro do aluno " + e.getMessage());
+             JOptionPane.showMessageDialog(null, "Erro ao excluir dados do professor, por favor selecione uma linha");
         }
     }//GEN-LAST:event_btDeletarActionPerformed
 
-    private void btVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVoltarActionPerformed
-        new HomeAlunoLogado(user).setVisible(true);
-        dispose();
-    }//GEN-LAST:event_btVoltarActionPerformed
-
     private void popularTabela() {
-        tabelaModelo = (DefaultTableModel) tabelaAluno.getModel();
+        tabelaModelo = (DefaultTableModel) tabelaProfessor.getModel();
         tabelaModelo.setNumRows(0);
-        for (User user : users) {
-            tabelaModelo.addRow(new Object[]{user.getNome(), user.getSobrenome(), user.getEmail(), user.getTipoPlan().getNomePlan()});
+        for (Professor professor : professors) {
+            tabelaModelo.addRow(new Object[]{professor.getNmProf(), professor.getArea()});
         }
     }
 
@@ -223,34 +238,34 @@ public class PesquisarAluno extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(PesquisarAluno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PesquisarProfessor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(PesquisarAluno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PesquisarProfessor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(PesquisarAluno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PesquisarProfessor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(PesquisarAluno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PesquisarProfessor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new PesquisarAluno().setVisible(true);
+                new PesquisarProfessor().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btAlterar;
     private javax.swing.JButton btDeletar;
-    private javax.swing.JButton btEditar;
     private javax.swing.JButton btPesquisar;
+    private javax.swing.JButton btPesquisarTodo;
     private javax.swing.JButton btVoltar;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel lbNomePesquisa;
+    private javax.swing.JLabel lbNome;
     private javax.swing.JLabel lbTitulo;
-    private javax.swing.JTable tabelaAluno;
+    private javax.swing.JTable tabelaProfessor;
     private javax.swing.JTextField varNome;
     // End of variables declaration//GEN-END:variables
 }
