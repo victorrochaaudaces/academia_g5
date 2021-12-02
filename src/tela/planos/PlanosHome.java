@@ -42,8 +42,18 @@ public class PlanosHome extends javax.swing.JFrame {
         lbTitulo.setText("Planos de treino da academia");
 
         btPesquisarPlano.setText("Pesquisar");
+        btPesquisarPlano.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btPesquisarPlanoActionPerformed(evt);
+            }
+        });
 
         btcadastrarPlano.setText("Cadastrar");
+        btcadastrarPlano.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btcadastrarPlanoActionPerformed(evt);
+            }
+        });
 
         btVoltar.setText("Voltar");
         btVoltar.addActionListener(new java.awt.event.ActionListener() {
@@ -89,6 +99,16 @@ public class PlanosHome extends javax.swing.JFrame {
         new HomeFuncionarioLogado().setVisible(true);
         dispose();
     }//GEN-LAST:event_btVoltarActionPerformed
+
+    private void btPesquisarPlanoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPesquisarPlanoActionPerformed
+        new PesquisarPlanos().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btPesquisarPlanoActionPerformed
+
+    private void btcadastrarPlanoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btcadastrarPlanoActionPerformed
+       new cadastroPlano().setVisible(true);
+       dispose();
+    }//GEN-LAST:event_btcadastrarPlanoActionPerformed
 
     /**
      * @param args the command line arguments
